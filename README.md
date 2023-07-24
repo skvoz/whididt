@@ -6,26 +6,20 @@ With max setup you will generate report and send on messenger, in time what your
 Example genrate daylick report. Your get log from git an current day, and output on your screen. 
 ```
 cd <your project pwd>
-whididt stash-logs 
-cd <your anohter project pwd>
-whididt stash-logs 
-<repeat n-times>
-whididt pop-logs
+whididt 
 ```
 
 ## Special ops
-whididt [OPTIONS] [COMMAND]
+whididt [OPTIONS] 
 
 Options:
+-p, --path          pwd your projects (ex: -p ~/porjects/1 ~/projects/2 )
 -c, --channel       set channel (slack, skype, DB)
--s, --schedult      generate report on time (and set it to channel)
+-s, --schedule      generate report on time (and set it to channel)
 -d, --diapazon      diapazon date(<n>d, <n>m, <n>y), default 1d(one day)
--D, --date          date start stash log, ( -D 01-01-2022 -d 3d) stash log from 01-01-2022 to 03-01-2022
-
-Command:
--ls, --stash-logs   add logs to storage
--pl, --pop-logs     generate daylick report from logs
-
+-S, --start         date start log, (ex: -S 12-31-2022) get log from 12-31-2022 to 12-31-2022
+-u, --until         date until log,  (ex: -S 12-31-2022 -u 12-31-2022) get log from 12-31-2022 to 12-31-2022
+-b --boss           boss name
 
 ## Configurations 
 Need for add channels, and CHAT-GPT for generate more intelligent report
