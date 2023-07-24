@@ -1,14 +1,25 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
-	"time"
+	"path/filepath"
+	"text/template"
 
 	lib "github.com/skvoz/whididt/lib"
 	cli "github.com/urfave/cli/v2"
 )
+
+type TemplateData struct {
+	BossName   string
+	ReportDate string
+	PD         []ProjectData
+}
+
+type ProjectData struct {
+	ProjectName string
+	CommitData  []string
+}
 
 func main() {
 	var start string
@@ -51,33 +62,27 @@ func main() {
 			} else {
 				path = []string{lib.GetProjectPath()}
 			}
-			currentTime := time.Now()
-			var templateHeader string
-			var templateBody string
 
-			templateHeader = `Hello, %s
+			tmpl, err := template.ParseFiles(filepath.Join("../",
+				"whididt.html"))
+			if err != nil {
+				panic(err)
+			}
+			td := TemplateData{
+				BossName:   "Fedia",
+				ReportDate: "11-11-2023",
+			}
 
-Daylick report. Date: %s
-`
-			templateBody = `
-Project: %s
-`
-			var header, body string
-
-			header = fmt.Sprintf(templateHeader, boss, currentTime.Format("01-02-2006"))
 			for _, v := range path {
 				gitCommit, _ := lib.GetGitCommitData(v, start, until)
 				projectName, _ := lib.GetGitProjectName(v)
-
-				body += fmt.Sprintf(templateBody, projectName)
-				for _, n := range gitCommit {
-					if n != "" {
-						body += fmt.Sprintf(" - %s\n", n)
-					}
-				}
+				td.PD = append(td.PD, ProjectData{projectName, gitCommit})
 			}
 
-			fmt.Print(header, body)
+			err = tmpl.Execute(os.Stdout, td)
+			if err != nil {
+				panic(err)
+			}
 
 			return nil
 		},

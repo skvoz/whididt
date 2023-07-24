@@ -33,6 +33,8 @@ func GetGitCommitData(path string, dateStart string, dateUntil string) ([]string
 	} else {
 		result, _ = executeCommand("git log --format=%B --since='"+dateStart+" 00:00' --until='"+dateUntil+" 23:59'", path)
 	}
+	resultSlice := strings.Split(result, "\n\n")
+	resultSlice = resultSlice[:len(resultSlice)-1]
 
-	return strings.Split(result, "\n\n"), nil
+	return resultSlice, nil
 }
