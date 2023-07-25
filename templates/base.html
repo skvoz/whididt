@@ -1,0 +1,9 @@
+Hello, {{.BossName}}
+Daylick report. Date: {{.ReportDate}}
+
+{{range $element := .PD}}
+    Project: {{  $element.ProjectName }}
+    {{range $el2 := $element.CommitData}}-{{$el2}} 
+    {{end}}
+{{end}}
+

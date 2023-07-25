@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"text/template"
 
+	"github.com/joho/godotenv"
 	lib "github.com/skvoz/whididt/lib"
 	cli "github.com/urfave/cli/v2"
 )
@@ -19,6 +20,19 @@ type TemplateData struct {
 type ProjectData struct {
 	ProjectName string
 	CommitData  []string
+}
+
+func init() {
+	var err error
+	if os.Getenv("APP_ENV") == "prod" {
+		err = godotenv.Load(".prod.env")
+	} else {
+		err = godotenv.Load(".env")
+	}
+
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
 }
 
 func main() {
