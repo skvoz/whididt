@@ -4,8 +4,9 @@ With max setup you will generate report and send on messenger, in time what your
 
 ## Setup
 wget -C https://github.com/skvoz/whididt/whididt.v0.1b.tar.gz
-tar -xzvf projects.tar.gz -C /opt/whididt.v0.1b
-cd /opt/whididt.v0.1b && ln -s /usr/local/bin
+mkdir /opt/whididt
+tar -xzvf whididt.v0.1b.tar.gz -C /opt/whididt
+ln -s /opt/whididt/whididt /usr/local/bin/whididt
 
 ## Usage
 Example genrate daylick report. Your get log from git an current day, and output on your screen. 
