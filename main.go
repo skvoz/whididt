@@ -8,6 +8,8 @@ import (
 
 	lib "github.com/skvoz/whididt/lib"
 	cli "github.com/urfave/cli/v2"
+
+	"time"
 )
 
 type TemplateData struct {
@@ -56,11 +58,31 @@ func main() {
 			},
 		},
 		Action: func(cCtx *cli.Context) error {
+			currentTime := time.Now()
+
+			formattedDate := currentTime.Format("01-02-2006")
+
 			var path = []string{}
+			var bossName string = ""
+			var reportDateStart string = formattedDate
+			var reportDateUntil string = ""
+
 			if len(cCtx.StringSlice("path")) > 0 {
 				path = cCtx.StringSlice("path")
 			} else {
 				path = []string{lib.GetProjectPath()}
+			}
+
+			if cCtx.String("boss") != "" {
+				bossName = cCtx.String("boss")
+			}
+
+			if cCtx.String("start") != "" {
+				reportDateStart = cCtx.String("start")
+			}
+
+			if cCtx.String("until") != "" {
+				reportDateUntil = cCtx.String("until")
 			}
 
 			tmpl, err := template.ParseFiles(filepath.Join("templates",
@@ -69,9 +91,10 @@ func main() {
 			if err != nil {
 				panic(err)
 			}
+
 			td := TemplateData{
-				BossName:   "Fedia",
-				ReportDate: "11-11-2023",
+				BossName:   bossName,
+				ReportDate: reportDateStart + " " + reportDateUntil,
 			}
 
 			for _, v := range path {

@@ -1,14 +1,21 @@
-# whididt v0.0
+# whididt v0.1
 This CLI library allows you generat day(half day :) report for your chif.
 With max setup you will generate report and send on messenger, in time what your need.
 
-## Setup
+## Setup for usage utils
 ```
-wget -C https://github.com/skvoz/whididt/whididt.v0.1b.tar.gz
+wget -C https://github.com/skvoz/whididt/whididt.vlast.tar.gz
 mkdir /opt/whididt
 tar -xzvf whididt.v0.1b.tar.gz -C /opt/whididt
 ln -s /opt/whididt/whididt /usr/local/bin/whididt
-export APP_WHIDIDT_ENV=dev
+```
+optional:
+
+- add template (whididt -t mytemplate.html). Golang template engine.
+
+## Setup for developer
+```
+
 ```
 
 ## Usage
@@ -42,6 +49,9 @@ Options:
 
 ## Configurations 
 Need for add channels, and CHAT-GPT for generate more intelligent report
+```
+APP_WHIDIDT_ENV=
+```
 
 ### Slack :
 ```TODO```
